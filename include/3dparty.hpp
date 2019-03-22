@@ -14,3 +14,7 @@
 #include <vector>
 #include <memory>
 #include <optional>
+
+//vgui
+#include <vgui/EventLoop.hpp>
+#include <vgui/WindowBase.hpp>

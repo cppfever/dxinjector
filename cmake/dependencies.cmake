@@ -1,6 +1,6 @@
 include(modules/DownloadProject/DownloadProject.cmake)
 
-get_filename_component(OUT_OF_SOURCE ../ ABSOLUTE)
+get_filename_component(OUT_OF_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/.. ABSOLUTE)
 set(DEPS_PREFIX PREFIX ${OUT_OF_SOURCE}/.cmake/deps)
 
 ####################################################
@@ -19,4 +19,3 @@ add_subdirectory(
     )
 
 include_directories(${vgui_SOURCE_DIR}/include)
-include_directories(${glad_SOURCE_DIR}/include)

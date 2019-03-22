@@ -11,8 +11,6 @@ add_compile_definitions(MINGW_SDK_INIT UNICODE NANOVG_GL2_IMPLEMENTATION)
 set(BUILD_SHARED_LIBS ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-message(====================app================== ${CMAKE_BINARY_DIR})
-
 # Directory where exe,dll and static library saved
 set(dxinjector_BINARY_DIR ${CMAKE_BINARY_DIR}/bin-${CMAKE_BUILD_TYPE})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${dxinjector_BINARY_DIR})
@@ -23,7 +21,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${dxinjector_BINARY_DIR})
 include(cmake/dependencies.cmake)
 
 include_directories(
-    include
+    include/
     ${VGUI_INCLUDE_DIRS}
     )
 

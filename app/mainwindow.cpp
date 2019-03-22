@@ -5,7 +5,12 @@ int main(int argc, char **argv)
 {    
     try
     {
+        vgui::EventLoopT<scnn::DX9Window> loop;
+
+        scnn::DX9Window win(L"Heroes of Might & Magic III - HD Edition", 200, 299, 800, 600);
+
         std::cout << "Ok" << std::endl;
+        return loop.Run();
     }
     catch(const std::exception& e)
     {
@@ -17,5 +22,5 @@ int main(int argc, char **argv)
         std::cout << "Unknown Error in vgui application !" << std::endl;
     }
 
-    return 0;
+    return -1;
 }

@@ -8,4 +8,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(${vgui_SOURCE_DIR/include})
 
 add_executable(app mainwindow.cpp)
-target_link_libraries(app nanovg)
+target_link_libraries(app d3d9 d3dx9 nanovg )

@@ -46,7 +46,7 @@ protected:
         if(m_d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &mode) < 0)
             throw ExceptionInfo << "Direct3D9. Can't retrieve the current display mode of the adapter.";
 
-        HWND hwnd = ::FindWindow(NULL, L"Heroes of Might & Magic III - HD Edition");
+        HWND hwnd = ::FindWindow(NULL, title);
         RECT rect;
         ::GetClientRect(hwnd, &rect);
 
