@@ -2,6 +2,7 @@
 
 #include <Wincodec.h>
 #include <d3d9.h>
+#include <d3d11_2.h>
 #include <wrl.h>
 #include <D3dx9tex.h>
 #include <vgui/Exception.hpp>
@@ -46,7 +47,7 @@ protected:
         if(m_d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &mode) < 0)
             throw ExceptionInfo << "Direct3D9. Can't retrieve the current display mode of the adapter.";
 
-        HWND hwnd = ::FindWindow(NULL, L"Heroes of Might & Magic III - HD Edition");
+        HWND hwnd = ::FindWindow(NULL, vgui::Utf8ToWstring(title).c_str());
         RECT rect;
         ::GetClientRect(hwnd, &rect);
 
@@ -78,22 +79,21 @@ protected:
         if(src_surface->GetDesc(&sd) < 0)
             throw ExceptionInfo << "Direct3D9. Can't create offscreen surface.";
 
-        HANDLE shared = nullptr;
-        if(m_device->CreateOffscreenPlainSurface(sd.Width, sd.Height, sd.Format, D3DPOOL_SYSTEMMEM, &m_surface, &shared) < 0)
+        if(m_device->CreateOffscreenPlainSurface(sd.Width, sd.Height, sd.Format, D3DPOOL_SYSTEMMEM, &m_surface, NULL) < 0)
             throw ExceptionInfo << "Direct3D9. Can't get source surface.";
 
 //        if(m_device->ColorFill(src_surface.Get(), NULL, D3DCOLOR(D3DCOLOR_ARGB(0,255,0,0))) <0)
-//            throw ExceptionInfo << "Direct3D9. Can't fill color.";
+        if(m_device->GetRenderTargetData(src_surface.Get(), m_surface.Get()) < 0)
+            throw ExceptionInfo << "Direct3D9. Can't fill color.";
+
+        if(D3DXSaveSurfaceToFile(L"1.bmp", D3DXIFF_BMP, m_surface.Get(), NULL, NULL) <0)
+            throw ExceptionInfo << "Direct3D9. Can't fill color.";
 
         m_device->EndScene();
 
         if(m_device->Present(NULL, NULL, Handle(), NULL) < 0)
             throw ExceptionInfo << "Direct3D9. Can't copy frontbuffer to backbuffer.";
 
-        if(m_device->GetRenderTargetData(src_surface.Get(), m_surface.Get()) < 0)
-            throw ExceptionInfo << "Direct3D9. Can't create offscreen surface.";
-
-        D3DXSaveSurfaceToFile(L"1.bmp", D3DXIFF_BMP, m_surface.Get(), NULL, NULL);
     }
 
     void Destroy()
@@ -119,6 +119,11 @@ protected:
     void OnResize(int width, int height) override
     {
 
+    }
+
+    void OnClose(bool& close) override
+    {
+        close = true;
     }
 
 private:    

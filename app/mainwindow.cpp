@@ -7,7 +7,7 @@ int main(int argc, char **argv)
     {
         vgui::EventLoopT<scnn::DX9Window> loop;
 
-        scnn::DX9Window win(L"Heroes of Might & Magic III - HD Edition", 200, 299, 800, 600);
+        scnn::DX9Window win("Heroes of Might & Magic III - HD Edition", 200, 299, 800, 600);
 
         std::cout << "Ok" << std::endl;
         return loop.Run();
